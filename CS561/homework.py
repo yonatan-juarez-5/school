@@ -41,6 +41,7 @@ class MLP:
         return np.where(Z > 0, 1, 0)
 
     def sigmoid(self,Z):
+        # act_signmoid
         return 1 / (1 + np.exp(-Z))
     
     def sigmoid_derivative(self, x):
@@ -50,6 +51,7 @@ class MLP:
         # Forward pass through the network
         self.hidden_output = self.relu(np.dot(X, self.weights1) + self.bias1)
         self.output = self.sigmoid(np.dot(self.hidden_output, self.weights2) + self.bias2)
+        # change to softmax (good for classification)
         return self.output
     
     def backward_pass(self, X, y):
@@ -63,11 +65,12 @@ class MLP:
         # Update weights and biases
         self.weights2 -= self.hidden_output.T.dot(delta_output) * self.learning_rate
         self.bias2 -= delta_output.sum(axis=0).values.reshape(1, -1) * self.learning_rate
+        # look into changing reshape()
         
         self.weights1 -= X.T.dot(delta_hidden) * self.learning_rate
         self.bias1 -= delta_hidden.sum(axis=0).values.reshape(1, -1) * self.learning_rate
 
-
+# gradient checking? compute backward pass output, pertrube weights
     def train(self, X_train, y_train, X_test, y_test):
         num_samples_train = X_train.shape[0]
         
@@ -83,8 +86,7 @@ class MLP:
                 
                 # Forward pass and backward pass for the mini-batch
                 self.forward_pass(X_batch_train)
-                
-                self.backward_pass(X_batch_train, y_batch_train)
+                self.backward_pass(X_batch_train, y_batch_train) 
 
             # Calculate train accuracy and loss
             train_predictions = self.predict(X_train)
@@ -129,11 +131,11 @@ class MLP:
 
 if __name__ == "__main__":
     input_size = 5
-    hidden = 5
+    hidden = 12
     output_size = 1
 
-    epochs = 1000
-    learning_rate = 0.01
+    epochs = 100
+    learning_rate = 0.1
     batch_size = 32
 
     model = MLP(input_size, hidden, output_size, epochs, learning_rate, batch_size)
@@ -145,6 +147,7 @@ if __name__ == "__main__":
     x_train = train_data.drop(columns_2_drop, axis=1)
     x_test = test_data.drop(columns_2_drop, axis=1)
     print(x_train.shape, x_test.shape, train_label.shape, test_label.shape)
+    # print(x_train.mean)
     # normalized PRICE feature
     model.train(x_train, train_label, x_test, test_label)
 
