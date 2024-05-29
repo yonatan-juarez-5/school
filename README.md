@@ -1,10 +1,13 @@
 # school
 # this repo will be used to keep track of class projects
 
-# cs 455 java systems design 
+#cs 455 java systems design 
 
-# dsci 552 machine learning for data science
+#cs402 operating systems
 
-# cs571 web development
+#dsci 552 machine learning for data science
 
-# cs585 database systems
+#cs571 web development
+
+#cs585 database systems
+
