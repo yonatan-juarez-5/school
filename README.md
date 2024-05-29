@@ -3,4 +3,4 @@
 #cs 455
 #programming assignments
 
-#dsci 552
+#dsci 552 machine learning for data science
