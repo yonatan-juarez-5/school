@@ -3,8 +3,6 @@
 
 #cs 455 java systems design 
 
-#cs402 operating systems
-
 #dsci 552 machine learning for data science
 
 #cs571 web development
